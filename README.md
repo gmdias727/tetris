@@ -1,1 +1,1 @@
-# tetris
+# tetris in pure javascript
