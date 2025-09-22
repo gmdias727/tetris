@@ -1,4 +1,5 @@
 "use strict"
+// 1) Saber o que fazer é mais importante
 
 // setInterval(() => {
 //     YIndex = YIndex + 1;
@@ -7,13 +8,12 @@
 // }, 0);
 
 const canvas = document.getElementById("canvas");
+
 canvas.width = 1000;
 canvas.height = 1000;
 
-console.log(canvas)
+// console.log(canvas)
 const ctx = canvas.getContext("2d");
-
-// 1) Saber o que fazer é mais importante
 
 const colors = {
     backgroundColor: "",
@@ -21,8 +21,13 @@ const colors = {
     cornerColor: ""
 }
 
-const width = canvas.width/10;
-const height = canvas.height/10;
+console.log(canvas.width)
+console.log(canvas.height)
+
+const indexesAmount = 10;
+const width = canvas.width/indexesAmount;
+const height = canvas.height/indexesAmount;
+
 
 const makeSquare = (XIndex, YIndex, colors) => {
 
@@ -39,72 +44,6 @@ const makeSquare = (XIndex, YIndex, colors) => {
     ctx.fillRect(positionX, positionY, width*0.1, height*0.1);
 }
 
-// const HeroPieceColor = {
-//     backgroundColor: "Black",
-//     foregroundColor: "Cyan",
-//     cornerColor: "White"
-// }
-
-// const makeHeroPiece = (XIndex, YIndex) => {
-//     makeSquare(XIndex, YIndex, HeroPieceColor)
-//     makeSquare(XIndex+1, YIndex, HeroPieceColor)
-//     makeSquare(XIndex+2, YIndex, HeroPieceColor)
-//     makeSquare(XIndex+3, YIndex, HeroPieceColor)
-// }
-
-// makeHeroPiece(0,0)
-
-// const OrangeRickyColor = {
-//     backgroundColor: "Black",
-//     foregroundColor: "Orange",
-//     cornerColor: "White"
-// }
-
-// const makeOrangeRicky = (XIndex, YIndex) => {
-//     makeSquare(XIndex+2, YIndex, OrangeRickyColor)
-//     makeSquare(XIndex, YIndex+1, OrangeRickyColor)
-//     makeSquare(XIndex+1, YIndex+1, OrangeRickyColor)
-//     makeSquare(XIndex+2, YIndex+1, OrangeRickyColor)
-// }
-
-// makeOrangeRicky(0,2)
-
-// const BlueRickyColor = {
-//     backgroundColor: "Black",
-//     foregroundColor: "Blue",
-//     cornerColor: "White"
-// }
-
-// const makeBlueRicky = (XIndex, YIndex) => {
-//     makeSquare(XIndex, YIndex, BlueRickyColor)
-//     makeSquare(XIndex, YIndex+1, BlueRickyColor)
-//     makeSquare(XIndex+1, YIndex+1, BlueRickyColor)
-//     makeSquare(XIndex+2, YIndex+1, BlueRickyColor)
-// }
-
-// const SmashBoyColor = {
-//     backgroundColor: "Black",
-//     foregroundColor: "Blue",
-//     cornerColor: "White"
-// }
-
-// makeBlueRicky(0,5)
-
-// const ClevelandZColor = {
-//     backgroundColor: "Black",
-//     foregroundColor: "Red",
-//     cornerColor: "White"
-// }
-
-// const makeClevelandZ = (XIndex, YIndex) => {
-//     makeSquare(XIndex, YIndex, ClevelandZColor)
-//     makeSquare(XIndex+1, YIndex, ClevelandZColor)
-//     makeSquare(XIndex+1, YIndex+1, ClevelandZColor)
-//     makeSquare(XIndex+2, YIndex+1, ClevelandZColor)
-// }
-
-// makeClevelandZ(0,8)
-
 const TeeweeColor = {
     backgroundColor: "Black",
     foregroundColor: "#8751B5",
@@ -115,23 +54,6 @@ let XIndex = 3;
 let YIndex = 0;
 
 const makeTeeweePiece = (XIndex, YIndex) => {
-
-    // if (boundaryLeft <= 0) {
-    //     console.log("Atingiu a parede da esquerda")
-    //     //cant_move_right
-    // }
-    // if (boundaryRight >= canvas.width) {
-    //     //cant_move_left
-    //     console.log("Atingiu a parede da direita")
-    // }
-    // if (boundaryBottom >= canvas.height) {
-    //     //_stop
-    //     //spawn_new_random_piece
-    //     //cant_move_down
-        
-    //     console.log("Atingiu o solo")
-    // }
-
     makeSquare(XIndex, YIndex+1, TeeweeColor)
     makeSquare(XIndex+1, YIndex, TeeweeColor)
     makeSquare(XIndex+1, YIndex+1, TeeweeColor)
@@ -155,15 +77,13 @@ makeTeeweePiece(XIndex, YIndex)
 //  YIndex >= canva.height -> do something
 
 document.addEventListener("keydown", (event) => {
-    
-    const boundaryLeft = width*XIndex;
-    const boundaryRight = width*(XIndex+3);
-    const boundaryBottom = height*(YIndex+2);
-        
+
+    // console.log(event);
+
     if (event.key == 'ArrowLeft') {
         console.log(`Esquerda: [XIndex: ${XIndex}][XIndex-1: ${XIndex - 1}][Pode mover? ${XIndex - 1 >= 0}]`);
         
-        if ((XIndex + 1) < boundaryLeft) {
+        if (XIndex > 0) {
             XIndex = XIndex - 1;
         }
     }
@@ -171,7 +91,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key == 'ArrowDown') {
         console.log(`Baixo: [YIndex: ${YIndex}][YIndex+1 ${YIndex+1}][Pode mover? ${YIndex < 8}]`);
 
-        if (YIndex < 8) {
+        if (YIndex < indexesAmount-2) {
             YIndex = YIndex + 1;
         }
     }
@@ -179,7 +99,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key == 'ArrowRight') {
         console.log(`Direita: [XIndex: ${XIndex}][XIndex-1: ${XIndex - 1}][Pode mover? ${XIndex + 2 < 8}]`);
 
-        if (XIndex + 2 < 9) {
+        if (XIndex + 2 < indexesAmount-1) {
             XIndex = XIndex + 1;
         }
     }
@@ -193,48 +113,3 @@ document.addEventListener("keydown", (event) => {
     makeTeeweePiece(XIndex, YIndex)
 
 })
-
-
-// const movePieceRight = () => {}
-// const movePieceLeft = () => {}
-// const movePieceDown = () => {}
-// const movePieceUp = () => {}
-
-
-
-// store a key press in javascript
-
-// const RhodeIslandZColor = {
-//     backgroundColor: "Black",
-//     foregroundColor: "Green",
-//     cornerColor: "White"
-// }
-
-// const makeRhodeIslandZ = (XIndex, YIndex) => {
-//     makeSquare(XIndex+2, YIndex, RhodeIslandZColor)
-//     makeSquare(XIndex+1, YIndex, RhodeIslandZColor)
-//     makeSquare(XIndex+1, YIndex+1, RhodeIslandZColor)
-//     makeSquare(XIndex, YIndex+1, RhodeIslandZColor)
-// }
-
-// makeRhodeIslandZ(5, 3)
-
-// const makeOrangeRicky = (3 x, -1 y) => {
-//     blue
-// }
-
-// const square = [
-//     [
-//         { x: width*0, y: height*0 },
-//         { x: width*1, y: height*0 },
-//     ],
-//     [
-//         { x: width*0, y: height*1 },
-//         { x: width*1, y: height*1 },
-//     ],
-// ]
-
-// makeSquare(0,0, colors)
-// makeSquare(200,0, colors)
-// makeSquare(0,200, colors)
-// makeSquare(200,200, colors)
